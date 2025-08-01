@@ -22,6 +22,19 @@ public class UtilisateurEntity {
     private String username;
     private String password;
     private String role;
+    
+    @Column(name = "prenom")
+private String prenom;
+
+   
+
+    public List<ActionEntity> getTodos() {
+        return this.todos;
+    }
+
+    public void setTodos(List<ActionEntity> todos) {
+        this.todos = todos;
+    }
 
     @OneToMany(mappedBy = "utilisateur")
     private List<ActionEntity> todos = new ArrayList<>();
@@ -29,10 +42,11 @@ public class UtilisateurEntity {
     public UtilisateurEntity() {
     }
 
-    public UtilisateurEntity(String username, String password, String role) {
+    public UtilisateurEntity(String username, String password, String role, String prenom) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.prenom =prenom;
     }
 
     public Long getId() {
@@ -66,5 +80,12 @@ public class UtilisateurEntity {
     public void setRole(String role) {
         this.role = role;
     }
+    
+    public String getPrenom() {
+        return prenom;
+    }
 
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 }
