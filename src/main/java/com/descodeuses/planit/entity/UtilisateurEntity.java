@@ -23,8 +23,14 @@ public class UtilisateurEntity {
     private String password;
     private String role;
     
-    @Column(name = "prenom")
-private String prenom;
+    
+  
+
+@Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "firstname")
+    private String firstname;
 
    
 
@@ -42,11 +48,14 @@ private String prenom;
     public UtilisateurEntity() {
     }
 
-    public UtilisateurEntity(String username, String password, String role, String prenom) {
+    public UtilisateurEntity(String username, String password, String role, String lastname, String firstname) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.prenom =prenom;
+        this.lastname = lastname;
+        this.firstname = firstname;
+
+
     }
 
     public Long getId() {
@@ -81,11 +90,20 @@ private String prenom;
         this.role = role;
     }
     
-    public String getPrenom() {
-        return prenom;
+
+    public String getFirstname(){
+        return firstname;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setFirstname(String firstname){
+         this.firstname = firstname;
+    }
+
+     public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

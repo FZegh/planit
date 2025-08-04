@@ -26,7 +26,7 @@ public class UtilisateurService {
         UtilisateurEntity user = utilisateurRepository.findByUsername(username)
             .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable : " + username));
 
-        return new UtilisateurDTO(user.getId(), user.getUsername(), user.getRole());
+        return new UtilisateurDTO(user.getId(), user.getUsername(), user.getRole(), user.getFirstname(), user.getLastname());
     }
 
     public void registerNewUser(String username, String password) {
