@@ -56,7 +56,7 @@ private LogDocumentService logDocumentService;
 
 @PostMapping("/sign-up")
 public ResponseEntity<Map<String, String>> signUp(@RequestBody AuthRequestDTO request) {
-    utilisateurService.registerNewUser(request.getUsername(), request.getPassword());
+    utilisateurService.registerNewUser(request.getUsername(), request.getPassword(), request.getFirstname(), request.getLastname(),request.getGenre());
 
 Map<String, String> response = new HashMap<>();
     response.put("message", "Utilisateur créé avec succès");

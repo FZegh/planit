@@ -22,6 +22,7 @@ public class UtilisateurEntity {
     private String username;
     private String password;
     private String role;
+    private String genre;
     
     
   
@@ -48,12 +49,13 @@ public class UtilisateurEntity {
     public UtilisateurEntity() {
     }
 
-    public UtilisateurEntity(String username, String password, String role, String lastname, String firstname) {
+    public UtilisateurEntity(String username, String password, String role, String lastname, String firstname, String genre) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.lastname = lastname;
         this.firstname = firstname;
+        this.genre = genre;
 
 
     }
@@ -106,4 +108,13 @@ public class UtilisateurEntity {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    public String getGenre() {
+    return genre;
+}
+
+public void setGenre(String genre) {
+    this.genre = genre;
+}
+
 }

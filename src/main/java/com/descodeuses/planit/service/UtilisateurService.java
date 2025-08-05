@@ -29,10 +29,14 @@ public class UtilisateurService {
         return new UtilisateurDTO(user.getId(), user.getUsername(), user.getRole(), user.getFirstname(), user.getLastname());
     }
 
-    public void registerNewUser(String username, String password) {
+    public void registerNewUser(String username, String password, String lastname, String firstname, String genre) {
         UtilisateurEntity newUser = new UtilisateurEntity();
         newUser.setUsername(username);
-        newUser.setPassword(password); // Pensez à encoder le mot de passe avec BCryptPasswordEncoder
+        newUser.setPassword(password);
+        newUser.setLastname(lastname);
+        newUser.setFirstname(firstname);
+        newUser.setGenre(genre);
+         // Pensez à encoder le mot de passe avec BCryptPasswordEncoder
         utilisateurRepository.save(newUser);
     }
 }
