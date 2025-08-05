@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.descodeuses.planit.dto.UtilisateurDTO;
@@ -15,6 +16,7 @@ import com.descodeuses.planit.service.UtilisateurService;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@RequestMapping("/api/utilisateur")
 @RestController
 public class UtilisateurController {
 
@@ -27,7 +29,8 @@ public class UtilisateurController {
         this.utilisateurService = utilisateurService;
     }
 
-    @GetMapping("/api/utilisateur/me")
+
+@GetMapping("/me")
 public ResponseEntity<UtilisateurDTO> getUtilisateurConnecte() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     String username = auth.getName();
@@ -48,7 +51,7 @@ public ResponseEntity<UtilisateurDTO> getUtilisateurConnecte() {
 
     
 
-     @GetMapping("/api/users/{username}")
+     @GetMapping("/{username}")
     public ResponseEntity<UtilisateurDTO> getUserByUsername(@PathVariable String username) {
         UtilisateurDTO userDto = utilisateurService.getUserDTOByUsername(username);
         return ResponseEntity.ok(userDto);
