@@ -8,37 +8,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.descodeuses.planit.dto.UtilisateurDTO;
-import com.descodeuses.planit.entity.UtilisateurEntity;
-import com.descodeuses.planit.repository.UtilisateurRepository;
-import com.descodeuses.planit.service.UtilisateurService;
+import com.descodeuses.planit.dto.UserDTO;
+import com.descodeuses.planit.entity.UserEntity;
+import com.descodeuses.planit.repository.UserRepository;
+import com.descodeuses.planit.service.UserService;
 
 
 import jakarta.persistence.EntityNotFoundException;
 
-@RequestMapping("/api/utilisateur")
+@RequestMapping("/api/user")
 @RestController
-public class UtilisateurController {
+public class UserController {
 
-    private final UtilisateurRepository utilisateurRepository;
-    private final UtilisateurService utilisateurService;
+    private final UserRepository userRepository;
+    private final UserService userService;
     
 
-    public UtilisateurController(UtilisateurRepository utilisateurRepository, UtilisateurService utilisateurService) {
-        this.utilisateurRepository = utilisateurRepository;
-        this.utilisateurService = utilisateurService;
+    public UserController(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
 
 @GetMapping("/me")
-public ResponseEntity<UtilisateurDTO> getUtilisateurConnecte() {
+public ResponseEntity<UserDTO> getUtilisateurConnecte() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     String username = auth.getName();
 
-    UtilisateurEntity entity = utilisateurRepository.findByUsername(username)
+    UserEntity entity = userRepository.findByUsername(username)
         .orElseThrow(() -> new EntityNotFoundException("Utilisateur non trouvé : " + username));
 
-    UtilisateurDTO dto = new UtilisateurDTO(
+    UserDTO dto = new UserDTO(
         entity.getId(),
         entity.getUsername(),
         entity.getRole(),
@@ -52,8 +52,8 @@ public ResponseEntity<UtilisateurDTO> getUtilisateurConnecte() {
     
 
      @GetMapping("/{username}")
-    public ResponseEntity<UtilisateurDTO> getUserByUsername(@PathVariable String username) {
-        UtilisateurDTO userDto = utilisateurService.getUserDTOByUsername(username);
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        UserDTO userDto = userService.getUserDTOByUsername(username);
         return ResponseEntity.ok(userDto);
     }
 }

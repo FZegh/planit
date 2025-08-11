@@ -1,61 +1,51 @@
 package com.descodeuses.planit.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "utilisateur")
-public class UtilisateurEntity {
+@Table(name = "utilisateur")  //attention ne pas modifier le nom de la table
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String role;
+
+    @Column(nullable = false)
     private String genre;
     
-    
-  
-
-@Column(name = "lastname")
+    @Column(name = "lastname", nullable = false)
     private String lastname;
 
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable = false)
     private String firstname;
 
    
-
-    public List<ActionEntity> getTodos() {
-        return this.todos;
+    public UserEntity() {
     }
 
-    public void setTodos(List<ActionEntity> todos) {
-        this.todos = todos;
-    }
-
-    @OneToMany(mappedBy = "utilisateur")
-    private List<ActionEntity> todos = new ArrayList<>();
-
-    public UtilisateurEntity() {
-    }
-
-    public UtilisateurEntity(String username, String password, String role, String lastname, String firstname, String genre) {
+    public UserEntity(String username, String password, String role, String lastname, String firstname, String genre) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.lastname = lastname;
         this.firstname = firstname;
         this.genre = genre;
+        
 
 
     }

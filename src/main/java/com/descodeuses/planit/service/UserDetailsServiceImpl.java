@@ -10,24 +10,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.descodeuses.planit.entity.UtilisateurEntity;
-import com.descodeuses.planit.repository.UtilisateurRepository;
+import com.descodeuses.planit.entity.UserEntity;
+import com.descodeuses.planit.repository.UserRepository;
 
 @Service
-public class UtilisateurDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UtilisateurEntity user  = utilisateurRepository.findByUsername(username)
+        UserEntity user  = userRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return new User(user.getUsername(),
-            user.getPassword(), List.of(new SimpleGrantedAuthority( user.getRole())));
+            user.getPassword(), List.of(new SimpleGrantedAuthority(user.getRole())));
     }
 
 }

@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.descodeuses.planit.dto.AuthRequestDTO;
 import com.descodeuses.planit.dto.AuthResponseDTO;
+import com.descodeuses.planit.dto.SignUpRequestDTO;
 import com.descodeuses.planit.security.JwtUtil;
 import com.descodeuses.planit.service.LogDocumentService;
-import com.descodeuses.planit.service.UtilisateurService;
+import com.descodeuses.planit.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,7 +32,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
-private UtilisateurService utilisateurService;
+private UserService userService;
 
 @Autowired
 private LogDocumentService logDocumentService;
@@ -54,13 +55,19 @@ private LogDocumentService logDocumentService;
 
 }
 
-@PostMapping("/sign-up")
-public ResponseEntity<Map<String, String>> signUp(@RequestBody AuthRequestDTO request) {
-    utilisateurService.registerNewUser(request.getUsername(), request.getPassword(), request.getFirstname(), request.getLastname(),request.getGenre());
 
-Map<String, String> response = new HashMap<>();
-    response.put("message", "Utilisateur créé avec succès");
-    return ResponseEntity.ok(response);
-}
+ @PostMapping("/sign-up")
+    public ResponseEntity<Map<String, String>> signUp(@RequestBody SignUpRequestDTO request) {
+        userService.registerNewUser(
+            request.getUsername(),
+            request.getPassword(),
+            request.getFirstname(),
+            request.getLastname(),
+            request.getGenre()
+        );
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Utilisateur créé avec succès");
+        return ResponseEntity.ok(response);
     }
-
+}

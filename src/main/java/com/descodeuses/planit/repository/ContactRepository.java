@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.descodeuses.planit.entity.ContactEntity;
 
+
 @Repository
 public interface ContactRepository extends JpaRepository<ContactEntity, Long> {    //Une classe ne peut pas être en lien avec interface
 

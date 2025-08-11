@@ -1,6 +1,6 @@
 package com.descodeuses.planit.dto;
 
-public class UtilisateurDTO {
+public class UserDTO {
     private Long id;
     private String username;
     private String role;
@@ -10,9 +10,9 @@ public class UtilisateurDTO {
 
 
 
-    public UtilisateurDTO() {}
+    public UserDTO() {}
 
-    public UtilisateurDTO(Long id, String username, String role,  String firstname, String lastname  ) {
+    public UserDTO(Long id, String username, String role,  String firstname, String lastname  ) {
         this.id = id;
         this.username = username;
         this.role = role;

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import com.descodeuses.planit.dto.ActionDTO;
 import com.descodeuses.planit.entity.ActionEntity;
 import com.descodeuses.planit.entity.ProjetEntity;
-import com.descodeuses.planit.entity.UtilisateurEntity;
+import com.descodeuses.planit.entity.UserEntity;
 import com.descodeuses.planit.repository.ActionRepository;
 import com.descodeuses.planit.repository.ProjetRepository;
-import com.descodeuses.planit.repository.UtilisateurRepository;
+import com.descodeuses.planit.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -24,13 +24,13 @@ public class ActionService {
 
     private final ActionRepository repository;
     private final ProjetRepository projetRepository;
-    private final UtilisateurRepository utilisateurRepository;
+    private final UserRepository userRepository;
 
     public ActionService(ActionRepository repository, ProjetRepository projetRepository,
-            UtilisateurRepository utilisateurRepository) {
+            UserRepository userRepository) {
         this.repository = repository;
         this.projetRepository = projetRepository;
-        this.utilisateurRepository = utilisateurRepository;
+        this.userRepository = userRepository;
     }
 
     private ActionDTO convertToDtO(ActionEntity action) {
@@ -42,7 +42,7 @@ public class ActionService {
                 action.getPriority(),
                 action.getDescription(),
                 action.getProjet() != null ? action.getProjet().getId() : null,
-                action.getUtilisateur() != null ? action.getUtilisateur().getId() : null);
+                action.getUser() != null ? action.getUser().getId() : null);
 
     }
 
@@ -112,12 +112,12 @@ public class ActionService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
-        UtilisateurEntity utilisateurConnecte = utilisateurRepository
+        UserEntity utilisateurConnecte = userRepository
         .findByUsername(username)
         .orElseThrow(() -> new EntityNotFoundException(
             "Utilisateur connecté non trouvé avec le username: " + username));
 
-            entity.setUtilisateur(utilisateurConnecte);
+            entity.setUser(utilisateurConnecte);
 
 
         // Sauvegarder l'entité dans la base de données

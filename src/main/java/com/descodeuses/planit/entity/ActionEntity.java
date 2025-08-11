@@ -45,7 +45,7 @@ private ContactEntity contact;
 
 @ManyToOne    //Many correspond aux actions et One à l'utilisateur
 @JoinColumn(name = "user_id")
-private UtilisateurEntity utilisateur;
+private UserEntity user;
 
    
 
@@ -137,12 +137,12 @@ public void setMembers(Set<ContactEntity> members) {
         this.contact = contact;
     }
 
-public UtilisateurEntity getUtilisateur() {
-        return this.utilisateur;
+public UserEntity getUser() {
+        return this.user;
     }
 
-    public void setUtilisateur(UtilisateurEntity utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
     
 }
