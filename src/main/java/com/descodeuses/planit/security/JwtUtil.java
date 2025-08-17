@@ -29,9 +29,10 @@ public class JwtUtil {
     }
 
     // Méthode pour générer un token JWT à partir d'un nom d'utilisateur
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         return Jwts.builder()
                 .setSubject(username) // Le "subject" du token, ici le nom d'utilisateur
+                .claim("role", role)
                 .setIssuedAt(new Date()) // Date de création du token (maintenant)
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // currentTimeMillis= temps actuelle Expiration dans 1 heure   
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Signature avec la clé et l'algorithme

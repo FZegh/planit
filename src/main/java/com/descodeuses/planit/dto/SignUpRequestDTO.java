@@ -10,17 +10,21 @@ public class SignUpRequestDTO {
     private String lastname;
     private String firstname;
     private String genre;
+    private String role;
 
 
 
  public SignUpRequestDTO() {}
 
- public SignUpRequestDTO(String username, String password, String lastname, String firstname, String genre) {
+ public SignUpRequestDTO(String username, String password, String lastname, String firstname, String genre, String role) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;
         this.firstname = firstname;
-        this.genre = genre;}
+        this.genre = genre;
+        this.role = role;
+    }
+
 
     public String getUsername() {
         return username;
@@ -61,7 +65,13 @@ public class SignUpRequestDTO {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-        
+    
+    public String getRole(){
+        return role;
+    }
+    public void setRole(String role){
+        this.role = role;
+    }
     }
 
 

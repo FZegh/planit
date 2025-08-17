@@ -1,5 +1,6 @@
 package com.descodeuses.planit.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserService {
         UserEntity user = userRepository.findByUsername(username)
             .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable : " + username));
 
-        return new UserDTO(user.getId(), user.getUsername(), user.getRole(), user.getFirstname(), user.getLastname());
+        return new UserDTO(user.getId(), user.getUsername(),"ROLE_" + user.getRole(), user.getFirstname(), user.getLastname());
     }
 
     public void registerNewUser(String username, String password, String lastname, String firstname, String genre) {
@@ -48,9 +49,22 @@ public class UserService {
         newUser.setLastname(lastname);
         newUser.setFirstname(firstname);
         newUser.setGenre(genre);
-        newUser.setRole("USER"); // Ajout pour sign-up 
+        newUser.setRole("ROLE_USER"); // Ajout pour sign-up 
 
          // Pensez à encoder le mot de passe avec BCryptPasswordEncoder
         userRepository.save(newUser);
     }
+
+    public List<UserDTO> getAllUserDTOs() {
+    List<UserEntity> users = userRepository.findAll();
+    return users.stream()
+        .map(user -> new UserDTO(
+            user.getId(),
+            user.getUsername(),
+            "ROLE_" + user.getRole(),
+            user.getFirstname(),
+            user.getLastname()
+        ))
+        .toList();
+}
 }

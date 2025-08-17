@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.descodeuses.planit.dto.AuthRequestDTO;
 import com.descodeuses.planit.dto.AuthResponseDTO;
 import com.descodeuses.planit.dto.SignUpRequestDTO;
+import com.descodeuses.planit.entity.UserEntity;
+import com.descodeuses.planit.repository.UserRepository;
 import com.descodeuses.planit.security.JwtUtil;
 import com.descodeuses.planit.service.LogDocumentService;
 import com.descodeuses.planit.service.UserService;
@@ -32,6 +35,9 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
 private UserService userService;
 
 @Autowired
@@ -43,15 +49,20 @@ private LogDocumentService logDocumentService;
         authenticationManager.authenticate
              (new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword())
             );
+
+            UserEntity user = userRepository.findByUsername(request.getUsername())
+             .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+    
+        String role = "ROLE_" + user.getRole(); // Ajout du préfixe
         
-        String token = jwtUtil.generateToken(request.getUsername());
+        String token = jwtUtil.generateToken(request.getUsername(), role);
 
         this.logDocumentService.addLog("nouvelle tache 2", false, "com.example.demo.DTO.TodoDTO");
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "Utilisateur créé avec succès");  // Créé la Map
 
-        return ResponseEntity.ok(new AuthResponseDTO(token));
+        return ResponseEntity.ok(new AuthResponseDTO(token, role));
 
 }
 

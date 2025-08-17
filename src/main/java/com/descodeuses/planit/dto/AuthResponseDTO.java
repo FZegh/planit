@@ -4,12 +4,14 @@ public class AuthResponseDTO {
 
 
     private String token;
+    private String role;
 
     public AuthResponseDTO(){}
     
 
-     public AuthResponseDTO(String token) {
+     public AuthResponseDTO(String token, String role) {
         this.token = token;
+        this.role = role;
     
     }
 
@@ -22,4 +24,11 @@ public class AuthResponseDTO {
     }
 
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

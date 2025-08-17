@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/utilisateur")
 
 public class TestController {
 
     @GetMapping("/hello")
     public String HelloAction() {
         
-        return "Hello user !";
+        return "Hello utilisateur !";
 
     }
 

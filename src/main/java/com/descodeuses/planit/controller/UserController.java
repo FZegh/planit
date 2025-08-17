@@ -1,5 +1,7 @@
 package com.descodeuses.planit.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +18,7 @@ import com.descodeuses.planit.service.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@RequestMapping("/api/user")
+@RequestMapping("/api/utilisateur")
 @RestController
 public class UserController {
 
@@ -41,7 +43,7 @@ public ResponseEntity<UserDTO> getUtilisateurConnecte() {
     UserDTO dto = new UserDTO(
         entity.getId(),
         entity.getUsername(),
-        entity.getRole(),
+      "ROLE_" +  entity.getRole(),
         entity.getFirstname(),
         entity.getLastname()
     );
@@ -55,5 +57,12 @@ public ResponseEntity<UserDTO> getUtilisateurConnecte() {
     public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         UserDTO userDto = userService.getUserDTOByUsername(username);
         return ResponseEntity.ok(userDto);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        List<UserDTO> users = userService.getAllUserDTOs();
+        return ResponseEntity.ok(users);
     }
 }
