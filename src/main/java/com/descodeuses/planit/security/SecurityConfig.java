@@ -62,7 +62,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of(allowCorsOrigin)); // 🌐 Frontend Angular
+        config.setAllowedOrigins(List.of(allowCorsOrigin.split(","))); // 🌐 Frontend Angular
         config.setAllowedMethods(List.of("*")); // 
         config.setAllowedHeaders(List.of("*")); // Autorise tous les headers
         config.setAllowCredentials(true); // Cookies et autorisations cross-domain
