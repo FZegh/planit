@@ -53,7 +53,7 @@ private LogDocumentService logDocumentService;
             UserEntity user = userRepository.findByUsername(request.getUsername())
              .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
     
-        String role = "ROLE_" + user.getRole(); // Ajout du préfixe
+         String role = user.getRole().replace("ROLE_", ""); 
         
         String token = jwtUtil.generateToken(request.getUsername(), role);
 
